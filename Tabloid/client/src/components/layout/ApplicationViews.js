@@ -3,7 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import {
   UserProfileContext,
   UserProfileProvider,
-} from "../providers/UserProfileProvider";
+} from "../../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
