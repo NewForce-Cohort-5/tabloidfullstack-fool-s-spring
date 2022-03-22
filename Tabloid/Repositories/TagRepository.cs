@@ -51,7 +51,7 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                         SELECT Id, Name
                           FROM Tag
-                      WHERE ID = @id";
+                         WHERE ID = @id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
