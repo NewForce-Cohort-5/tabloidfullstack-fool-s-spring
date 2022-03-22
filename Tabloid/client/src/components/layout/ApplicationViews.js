@@ -6,6 +6,7 @@ import {
 } from "../../providers/UserProfileProvider";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
+import PostList from "../post/PostList";
 import Hello from "./Hello";
 
 export default function ApplicationViews() {
@@ -24,6 +25,7 @@ export default function ApplicationViews() {
    return(
       <Routes>
         <Route path="/" element={<Hello />} />
+        <Route path="/posts" element={<PostList />} />
       </Routes>
    );
   }
