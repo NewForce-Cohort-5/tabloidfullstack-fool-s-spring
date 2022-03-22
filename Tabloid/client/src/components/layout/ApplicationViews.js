@@ -4,9 +4,10 @@ import {
   UserProfileContext,
   UserProfileProvider,
 } from "../../providers/UserProfileProvider";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "../auth/Login";
+import Register from "../auth/Register";
 import Hello from "./Hello";
+import TagList from "../tag/TagList"
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -24,6 +25,7 @@ export default function ApplicationViews() {
    return(
       <Routes>
         <Route path="/" element={<Hello />} />
+        <Route path="/tags" element={<TagList />} />
       </Routes>
    );
   }
