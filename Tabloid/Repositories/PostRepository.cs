@@ -19,23 +19,33 @@ namespace Tabloid.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"
+                    cmd.CommandText = SelectPostFields()
+                                    + CategoryFields()
+                                    + UserProfileFields()
+                                    + UserTypeFields()
+                                    + FromPost()
+                                    + JoinCategory()
+                                    + JoinUserProfile()
+                                    + JoinUserType()
+                                    + WhereApprovedAndPublished()
+                                    + OrderByPublishedDesc();
                               
-                       SELECT p.Id, p.Title, p.Content, 
-                              p.ImageLocation AS HeaderImage,
-                              p.CreateDateTime, p.PublishDateTime, p.IsApproved,
-                              p.CategoryId, p.UserProfileId,
-                              c.[Name] AS CategoryName,
-                              u.FirstName, u.LastName, u.DisplayName, 
-                              u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
-                              u.UserTypeId, 
-                              ut.[Name] AS UserTypeName
-                         FROM Post p
-                              LEFT JOIN Category c ON p.CategoryId = c.id
-                              LEFT JOIN UserProfile u ON p.UserProfileId = u.id
-                              LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME()
-                        ORDER BY p.PublishDateTime DESC";
+                    //   SELECT p.Id, p.Title, p.Content, 
+                    //          p.ImageLocation AS HeaderImage,
+                    //          p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+                    //          p.CategoryId, p.UserProfileId,
+                    //          c.[Name] AS CategoryName,
+                    //          u.FirstName, u.LastName, u.DisplayName, 
+                    //          u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
+                    //          u.UserTypeId, 
+                    //          ut.[Name] AS UserTypeName
+                    //     FROM Post p
+                    //          LEFT JOIN Category c ON p.CategoryId = c.id
+                    //          LEFT JOIN UserProfile u ON p.UserProfileId = u.id
+                    //          LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                    //    WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME()
+                    //    ORDER BY p.PublishDateTime DESC
+
                     var reader = cmd.ExecuteReader();
 
                     var posts = new List<Post>();
@@ -347,6 +357,122 @@ namespace Tabloid.Repositories
         //        }
         //    };
         //}
+
+        /// <summary>
+        /// The beginning of a SELECT statement that gets necessary POST columns
+        /// </summary>
+        /// <returns>String</returns>
+        private string SelectPostFields()
+        {
+            return $@"
+                      SELECT  p.Id, p.Title, p.Content, 
+                              p.ImageLocation AS HeaderImage,
+                              p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+                              p.CategoryId, p.UserProfileId
+                    ";
+        }
+
+        /// <summary>
+        /// Category columns needed in the SELECT statement
+        /// </summary>
+        /// <returns>String</returns>
+        private string CategoryFields()
+        {
+            return @",
+                        c.[Name] AS CategoryName
+                    ";
+        }
+
+        /// <summary>
+        /// User Profile columns needed in the SELECT statement
+        /// </summary>
+        /// <returns>String</returns>
+        private string UserProfileFields()
+        {
+            return @",
+                        u.FirstName, u.LastName, u.DisplayName, 
+                        u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
+                        u.UserTypeId
+                        
+                    ";
+        }
+        
+        /// <summary>
+        /// User Type columns needed in the SELECT statement
+        /// </summary>
+        /// <returns>String</returns>
+        private string UserTypeFields()
+        {
+            return @",
+                        ut.[Name] AS UserTypeName 
+                    ";
+        }
+
+        /// <summary>
+        /// The FROM of the statement beginning with Posts
+        /// </summary>
+        /// <returns>String</returns>
+        private string FromPost()
+        {
+            return @"
+                        FROM Post p
+                    ";
+        }
+
+        /// <summary>
+        /// LEFT JOIN statement for Category on Posts
+        /// </summary>
+        /// <returns>String</returns>
+        private string JoinCategory()
+        {
+            return @"
+                        LEFT JOIN Category c ON p.CategoryId = c.id
+                    ";
+        }
+
+        /// <summary>
+        /// LEFT JOIN statement for UserProfile on Posts
+        /// </summary>
+        /// <returns>String</returns>
+        private string JoinUserProfile()
+        {
+            return @"
+                        LEFT JOIN UserProfile u ON p.UserProfileId = u.id
+                    ";
+        }
+
+        /// <summary>
+        /// LEFT JOIN statement for UserType on Posts
+        /// </summary>
+        /// <returns>String</returns>
+        private string JoinUserType()
+        {
+            return @"
+                        LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                    ";
+        }
+
+        /// <summary>
+        /// WHERE clause for getting approved posts published in the past
+        /// </summary>
+        /// <returns>String</returns>
+        private string WhereApprovedAndPublished()
+        {
+            return @"
+                        WHERE p.IsApproved = 1 AND p.PublishDateTime < SYSDATETIME()
+                    ";
+        }
+
+        /// <summary>
+        /// ORDER BY statement that will display the latest Posts first
+        /// </summary>
+        /// <returns>String</returns>
+        private string OrderByPublishedDesc()
+        {
+            return @"
+                        ORDER BY p.PublishDateTime DESC 
+                    ";
+        }
 
     }
 }
