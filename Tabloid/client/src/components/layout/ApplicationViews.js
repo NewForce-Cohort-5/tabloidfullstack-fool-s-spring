@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import {
-  UserProfileContext,
-  UserProfileProvider,
-} from "../../providers/UserProfileProvider";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
 import PostList from "../post/PostList";
