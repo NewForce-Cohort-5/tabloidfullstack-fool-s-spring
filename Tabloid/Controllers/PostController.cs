@@ -24,7 +24,7 @@ namespace Tabloid.Controllers
         [HttpGet("myposts")]
         public IActionResult GetAllMyPosts(int id)
         {
-            return Ok(_postRepository.GetAllPublishedPostsByUser(id));
+            return Ok(_postRepository.GetAllPostsByUser(id));
         }
     }
 }
