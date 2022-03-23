@@ -19,9 +19,9 @@ const TagList = () => {
     return (
         <div className="container pt-5">
             <h1>Tags</h1>
-            <p className="mb-4">
-                <a className="btn btn-success text-light" onClick={handleCreateTag}>New Tag</a>
-            </p>
+            <button className="btn btn-success text-light mb-3" onClick={handleCreateTag}>
+                New Tag
+            </button>
             <table className="table table-striped mt-3">
                 <tbody>
                     {tags.map((tag) => (
