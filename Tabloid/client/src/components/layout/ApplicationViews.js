@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
+import MyPostList from "../post/MyPostList";
 import PostList from "../post/PostList";
 import Hello from "./Hello";
 import TagList from "../tag/TagList"
@@ -24,6 +25,7 @@ export default function ApplicationViews() {
       <Routes>
         <Route path="/" element={<Hello />} />
         <Route path="/posts" element={<PostList />} />
+        <Route path="/myposts" element={<MyPostList />} />
         <Route path="/tags" element={<TagList />} />
       </Routes>
    );
