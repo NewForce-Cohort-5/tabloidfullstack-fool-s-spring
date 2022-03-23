@@ -77,7 +77,7 @@ namespace Tabloid.Repositories
                                     + JoinCategory()
                                     + JoinUserProfile()
                                     + JoinUserType()
-                                    + WherePublishedAndIdEquals()
+                                    + WhereCreatedAndIdEquals()
                                     + OrderByPublishedDesc();
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -95,7 +95,7 @@ namespace Tabloid.Repositories
                     //          LEFT JOIN Category c ON p.CategoryId = c.id
                     //          LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                     //          LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                    //    WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME() AND u.Id = @id
+                    //    WHERE p.CreateDateTime < SYSDATETIME() AND u.Id = @id
                     //    ORDER BY p.PublishDateTime DESC
 
                     var reader = cmd.ExecuteReader();
@@ -584,6 +584,17 @@ namespace Tabloid.Repositories
         {
             return @"
                         WHERE p.PublishDateTime < SYSDATETIME() AND u.Id = @id
+                    ";
+        }
+
+        /// <summary>
+        /// WHERE clause for getting all posts created in the past belonging to a particular user
+        /// </summary>
+        /// <returns>String</returns>
+        private string WhereCreatedAndIdEquals()
+        {
+            return @"
+                        WHERE p.CreateDateTime < SYSDATETIME() AND u.Id = @id
                     ";
         }
 
