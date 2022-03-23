@@ -25,6 +25,8 @@ namespace Tabloid
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IPostRepository, PostRepository>();
 
+            services.AddTransient<ITagRepository, TagRepository>();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
