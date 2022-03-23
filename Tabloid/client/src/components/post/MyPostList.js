@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import Post from "./Post";
 
-const PostList = () => {
+const MyPostList = () => {
   
   const { posts, getMyPosts } = useContext(PostContext);
 
@@ -23,4 +23,4 @@ const PostList = () => {
   );
 };
 
-export default PostList;
+export default MyPostList;
