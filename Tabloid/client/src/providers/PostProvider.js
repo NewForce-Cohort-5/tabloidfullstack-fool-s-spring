@@ -13,7 +13,7 @@ export const PostProvider = (props) => {
   };
 
   const getMyPosts = (id) => {
-    return fetch(`/api/post/myposts?id${id}`)
+    return fetch(`/api/post/myposts?id=${id}`)
       .then(r => r.json())
       .then(setPosts);
   };
