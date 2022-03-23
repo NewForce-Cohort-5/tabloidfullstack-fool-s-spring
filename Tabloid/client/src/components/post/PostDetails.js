@@ -33,6 +33,7 @@ const PostDetails = () => {
             <img width="150" height="150" src={singlePost.userProfile.imageLocation} alt={singlePost.userProfile.fullName} style={{ border: "1px solid #ddd", borderRadius: "50%" }}/> 
             <span className="text-left px-2">{singlePost.userProfile.fullName}</span>
           </Link>
+          {new Date(singlePost.publishDateTime).toDateString().slice(3)}
         </p>
                 
         <p className="text-left px-2">
