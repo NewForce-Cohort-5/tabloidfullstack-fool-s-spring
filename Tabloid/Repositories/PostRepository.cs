@@ -62,6 +62,58 @@ namespace Tabloid.Repositories
             }
         }
 
+        public List<Post> GetAllPostsByUser(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = SelectPostFields()
+                                    + CategoryFields()
+                                    + UserProfileFields()
+                                    + UserTypeFields()
+                                    + FromPost()
+                                    + JoinCategory()
+                                    + JoinUserProfile()
+                                    + JoinUserType()
+                                    + WherePublishedAndIdEquals()
+                                    + OrderByPublishedDesc();
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    //   SELECT p.Id, p.Title, p.Content, 
+                    //          p.ImageLocation AS HeaderImage,
+                    //          p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+                    //          p.CategoryId, p.UserProfileId,
+                    //          c.[Name] AS CategoryName,
+                    //          u.FirstName, u.LastName, u.DisplayName, 
+                    //          u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
+                    //          u.UserTypeId, 
+                    //          ut.[Name] AS UserTypeName
+                    //     FROM Post p
+                    //          LEFT JOIN Category c ON p.CategoryId = c.id
+                    //          LEFT JOIN UserProfile u ON p.UserProfileId = u.id
+                    //          LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                    //    WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME() AND u.Id = @id
+                    //    ORDER BY p.PublishDateTime DESC
+
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(NewPostFromReader(reader));
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
+
         public List<Post> GetAllPublishedPostsByUser(int id)
         {
             using (var conn = Connection)
@@ -521,6 +573,17 @@ namespace Tabloid.Repositories
         {
             return @"
                         WHERE p.IsApproved = 1 AND p.PublishDateTime < SYSDATETIME() AND u.Id = @id
+                    ";
+        }
+
+        /// <summary>
+        /// WHERE clause for getting all posts published in the past belonging to a particular user
+        /// </summary>
+        /// <returns>String</returns>
+        private string WherePublishedAndIdEquals()
+        {
+            return @"
+                        WHERE p.PublishDateTime < SYSDATETIME() AND u.Id = @id
                     ";
         }
 
