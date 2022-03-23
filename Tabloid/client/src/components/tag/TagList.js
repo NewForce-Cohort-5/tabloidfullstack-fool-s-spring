@@ -12,7 +12,9 @@ const TagList = () => {
     return (
         <div className="container pt-5">
             <h1>Tags</h1>
-
+            <p>
+                <a class="btn btn-success text-light" asp-action="Create">New Tag</a>
+            </p>
             <table class="table table-striped mt-3">
                 <tbody>
                     {tags.map((tag) => (
