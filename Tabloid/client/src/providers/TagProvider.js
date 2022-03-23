@@ -16,8 +16,18 @@ export const TagProvider = (props) => {
             .then((res) => res.json());
     };
 
+    const addTag = (tag) => {
+        return fetch(`/api/tag`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(tag),
+        }).then(getAllTags);
+      };
+
     return (
-        <TagContext.Provider value={{ tags, getAllTags, getTagById }}>
+        <TagContext.Provider value={{ tags, getAllTags, getTagById, addTag }}>
             {props.children}
         </TagContext.Provider>
     );
