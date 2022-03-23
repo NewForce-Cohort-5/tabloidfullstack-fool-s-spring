@@ -13,11 +13,11 @@ const TagList = () => {
         <div className="container pt-5">
             <h1>Tags</h1>
 
-            <table class="table table-striped mt-3">
+            <table className="table table-striped mt-3">
                 <tbody>
                     {tags.map((tag) => (
                         <Tag key={tag.id} tagProp={tag} />
-                    ))}
+                    )).sort()}
                 </tbody>
             </table>
         </div>
