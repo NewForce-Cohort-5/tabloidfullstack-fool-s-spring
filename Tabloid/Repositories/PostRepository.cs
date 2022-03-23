@@ -464,6 +464,17 @@ namespace Tabloid.Repositories
         }
 
         /// <summary>
+        /// WHERE clause for getting approved posts published in the past belonging to a particular user
+        /// </summary>
+        /// <returns>String</returns>
+        private string WhereApprovedAndPublishedAndIdEquals()
+        {
+            return @"
+                        WHERE p.IsApproved = 1 AND p.PublishDateTime < SYSDATETIME() AND u.Id = @id
+                    ";
+        }
+
+        /// <summary>
         /// ORDER BY statement that will display the latest Posts first
         /// </summary>
         /// <returns>String</returns>
