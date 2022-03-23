@@ -78,7 +78,7 @@ namespace Tabloid.Repositories
                                     + JoinUserProfile()
                                     + JoinUserType()
                                     + WhereCreatedAndIdEquals()
-                                    + OrderByPublishedDesc();
+                                    + OrderByPostCreatedDateTimeDesc();
 
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -96,7 +96,7 @@ namespace Tabloid.Repositories
                     //          LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                     //          LEFT JOIN UserType ut ON u.UserTypeId = ut.id
                     //    WHERE p.CreateDateTime < SYSDATETIME() AND u.Id = @id
-                    //    ORDER BY p.PublishDateTime DESC
+                    //    ORDER BY p.CreateDateTime DESC
 
                     var reader = cmd.ExecuteReader();
 
@@ -599,13 +599,24 @@ namespace Tabloid.Repositories
         }
 
         /// <summary>
-        /// ORDER BY statement that will display the latest Posts first
+        /// ORDER BY statement that will display the latest published Posts first
         /// </summary>
         /// <returns>String</returns>
         private string OrderByPublishedDesc()
         {
             return @"
                         ORDER BY p.PublishDateTime DESC 
+                    ";
+        }
+
+        /// <summary>
+        /// ORDER BY statement that will display the latest created Posts first
+        /// </summary>
+        /// <returns>String</returns>
+        private string OrderByPostCreatedDateTimeDesc()
+        {
+            return @"
+                        ORDER BY p.CreateDateTime DESC 
                     ";
         }
 
