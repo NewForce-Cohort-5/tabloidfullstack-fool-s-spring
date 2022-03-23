@@ -6,9 +6,10 @@ const PostList = () => {
   
   const { posts, getMyPosts } = useContext(PostContext);
 
+  const currentUser = JSON.parse(sessionStorage.getItem("userProfile"));
 
   useEffect(() => {
-    getMyPosts();
+    getMyPosts(currentUser.id);
   }, []);
 
   return (

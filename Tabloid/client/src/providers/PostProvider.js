@@ -12,8 +12,8 @@ export const PostProvider = (props) => {
       .then(setPosts);
   };
 
-  const getMyPosts = () => {
-    return fetch('/api/post/myposts')
+  const getMyPosts = (id) => {
+    return fetch(`/api/post/myposts?id${id}`)
       .then(r => r.json())
       .then(setPosts);
   };
