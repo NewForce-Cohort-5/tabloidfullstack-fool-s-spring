@@ -10,7 +10,7 @@ export const CommentProvider = (props) => {
     const apiUrl = "https://localhost:5001/api/Comment";
 
     const getCommentsByPostId = (postId) => {
-        fetch(`${apiUrl}/getbypost/${postId}`, {
+        fetch(`/api/Comment/getbypost/${postId}`, {
             method: "GET",
         }).then((res) => res.json())
 

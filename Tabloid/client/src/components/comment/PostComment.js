@@ -7,27 +7,24 @@ import { useHistory, useParams } from "react-router-dom";
 
 const CommentList = () => {
 const { comments, getCommentsByPostId } = useContext(CommentContext);
-const { postId } = useParams();
+const { id } = useParams();
 useEffect(() => {
-    getCommentsByPostId(postId);
-});
+    getCommentsByPostId(id);
+}, []);
 
 return (
     <>
     {comments.length > 0 ? 
         <>
         <Container className="justify-content-center" fluid={true}>
-            <Table>
-            <tbody>
                 {comments.map((comment, index) => {
                 comment.listIndex = index + 1;
                 return <Comment key={comment.id} comment={comment} />;
                 })}
-            </tbody>
-            </Table>
+
         </Container>
         </>
-    : <p className="text-center">No comments yet..</p>
+: <p className="text-center">No comments yet!</p>
     }
     </>
 );
