@@ -1,7 +1,7 @@
-import React, { useState, createContext, useEffect, useContext } from "react";
+import React, { useState, createContext } from "react";
 
 
-export const CommentContext = React.createContext();
+export const CommentContext = createContext();
 
 export const CommentProvider = (props) => {
     const [comments, setComments] = useState([]);

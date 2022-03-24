@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { CommentContext } from "../../providers/CommentProvider";
-import { Container, Table, Button } from "reactstrap";
+import { Container, Table } from "reactstrap";
 import Comment from "./Comment";
 import { Link } from "react-router-dom";
 import { useHistory, useParams } from "react-router-dom";

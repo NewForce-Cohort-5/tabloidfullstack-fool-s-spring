@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Card,  CardTitle,  CardBody,  Button,  Modal, ModalHeader, ModalBody, ModalFooter, Badge } from "reactstrap";
-import { CommentContext } from "../../providers/CommentProvider";
+import { Card,  CardTitle,  CardBody, Badge } from "reactstrap";
+
 
 const Comment = ({ comment }) => {
 
