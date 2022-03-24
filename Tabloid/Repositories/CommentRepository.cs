@@ -29,7 +29,8 @@ namespace Tabloid.Repositories
                   FROM Comment c
                   JOIN Post p on c.PostId = p.Id
                   Join UserProfile u on p.UserProfileId = u.Id
-              WHERE PostId = @Id";
+              WHERE PostId = @Id
+                    ORDER BY c.CreateDateTime DESC";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
