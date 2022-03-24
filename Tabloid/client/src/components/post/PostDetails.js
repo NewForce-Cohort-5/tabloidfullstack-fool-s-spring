@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Card, CardImg, CardBody } from "reactstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Card, CardImg, CardBody, Button } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
 
 const PostDetails = () => {
@@ -9,9 +9,15 @@ const PostDetails = () => {
 
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getPostById(id);
   }, [id]);
+
+  const viewComments = () => {
+    navigate(`/posts/comments/${id}`)
+  };
 
   //? Im rendering React fragment with a conditional inside of it so React doesn't... overReact when singlePost is undefined
   //? The conditional will let the component run it's useEffect when it detects the id in the params.. thankfully..
@@ -43,7 +49,7 @@ const PostDetails = () => {
         </p>
         
         <p className="text-left px-2">{singlePost.category.name}</p>
-
+      <Button onClick= {() => viewComments()}>View Comments</Button>
       </CardBody>
       
       <p className="text-left px-4">{singlePost.content}</p>
