@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Repositories;
+using Tabloid.Models;
 
 namespace Tabloid.Controllers
 {
@@ -38,6 +39,13 @@ namespace Tabloid.Controllers
             }
 
             return Ok(post);
+        }
+
+        [HttpPost]
+        public IActionResult Post(Post post)
+        {
+            _postRepository.Add(post);
+            return CreatedAtAction("GetSinglePost", new { id = post.Id }, post);
         }
     }
 }
