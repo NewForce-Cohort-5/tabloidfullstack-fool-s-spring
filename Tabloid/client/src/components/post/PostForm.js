@@ -18,7 +18,7 @@ const PostForm = () => {
 
   const [action, setAction] = useState("Create");
 
-  const { addPost, getPostToEdit, editPost } = useContext(PostContext);
+  const { addNewPost, getPostToEdit, editPost } = useContext(PostContext);
 
   const { id } = useParams();
 
@@ -34,7 +34,7 @@ const PostForm = () => {
     if (id) {
       editPost(post).then(() => navigate(`/posts/${id}`));
     } else {
-      addPost({ ...post, createDateTime: new Date().toISOString() })
+      addNewPost({ ...post, createDateTime: new Date().toISOString() })
       .then(() => navigate("/"));
     }
   };
@@ -62,7 +62,7 @@ const PostForm = () => {
   return (
     <Container className="pt-5">
       <h2>{action} Post</h2>
-      <Form inline>
+      <Form >
         <FormGroup floating>
           <Input
             id="title"
@@ -70,25 +70,26 @@ const PostForm = () => {
             onChange={handleChangeInput}
             value={post.title}
             />
-          <Label for="title">Title</Label>
+          <Label for="title" hidden>Title</Label>
         </FormGroup>
-        <FormGroup floating>
+        <FormGroup >
           <Input
             id="content"
             placeholder="Content"
             onChange={handleChangeInput}
             value={post.content}
+            type="textarea"
             />
-          <Label for="caption">Content</Label>
+          <Label for="content" hidden>Content</Label>
         </FormGroup>
-        <FormGroup floating>
+        <FormGroup >
           <Input
             id="imageLocation"
             placeholder="Image Location"
             onChange={handleChangeInput}
             value={post.imageLocation}
             />
-          <Label for="imageUrl">Image Location</Label>
+          <Label for="imageLocation" hidden>Image Location</Label>
         </FormGroup>
         <Button onClick={handleSubmitPost}>Submit</Button>
       </Form>
