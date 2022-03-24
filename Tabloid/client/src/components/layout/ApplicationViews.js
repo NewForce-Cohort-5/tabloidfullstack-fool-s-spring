@@ -8,6 +8,7 @@ import PostList from "../post/PostList";
 import Hello from "./Hello";
 import TagList from "../tag/TagList"
 import TagForm from "../tag/TagForm"
+import PostDetails from "../post/PostDetails";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -27,6 +28,7 @@ export default function ApplicationViews() {
         <Route path="/" element={<Hello />} />
         <Route path="/posts" element={<PostList />} />
         <Route path="/myposts" element={<MyPostList />} />
+        <Route path="/posts/:id" element={<PostDetails />} />
         <Route path="/tags" element={<TagList />} />
         <Route path="/tags/add" element={<TagForm />} />
       </Routes>
