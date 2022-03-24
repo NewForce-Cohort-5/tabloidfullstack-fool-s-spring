@@ -25,7 +25,7 @@ namespace Tabloid.Models
 
         public bool IsApproved { get; set; }
 
-        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please Select a Category")]
         [DisplayName("Category")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
