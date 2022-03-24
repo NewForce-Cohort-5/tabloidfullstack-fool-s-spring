@@ -1,30 +1,35 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import { TagContext } from "../../providers/TagProvider"
 
 export const TagForm = () => {
-    const { addTag, getAllTags } = useContext(TagContext);
+    const { updateTag, getTagById } = useContext(TagContext);
 
-    const [tag, setTags] = useState({
+    const [tag, setUpdatedTag] = useState({
         name: ""
     });
 
+    const tagId = useParams();
     const navigate = useNavigate();
 
+
     useEffect(() => {
-        getAllTags()
+        getTagById(tagId)
     }, [])
 
     const handleControlledInputChange = (event) => {
-        const newTag = { ...tag }
-        newTag[event.target.id] = event.target.value
-        setTags(newTag)
+        const singleUpdatedTag = { ...tag }
+        singleUpdatedTag[event.target.id] = event.target.value
+        setUpdatedTag(singleUpdatedTag)
     }
 
-    const handleSavePost = (event) => {
+    const handleUpdatePost = (event) => {
         event.preventDefault()
-        addTag(tag)
+        updateTag({
+            id: tag.id,
+            title: tag.name
+        })
             .then(() => navigate("/tags"));
     }
 
@@ -35,15 +40,15 @@ export const TagForm = () => {
                     <div className="form-group row col-md-12 mx-auto mb-3">
                         <label htmlFor="name" className="col-lg-2 col-form-label text-left">Tag Name:</label>
                         <div className="col-lg-10">
-                            <input type="text" className="form-control" id="name" placeholder="Enter new tag name here..."
+                            <input type="text" className="form-control" id="name"
                                 onChange={handleControlledInputChange}
                                 value={tag.name} />
                         </div>
                     </div>
                     <div className="form-group row col-sm-12 mx-auto mb-3">
                         <div className="col-sm-12">
-                            <button type="submit" className="btn btn-success text-light" onClick={handleSavePost}>
-                                Save
+                            <button type="submit" className="btn btn-success text-light" onClick={handleUpdatePost}>
+                                Update
                             </button>
                         </div>
                     </div>

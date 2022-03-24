@@ -2,12 +2,15 @@ import React, { useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { TagContext } from "../../providers/TagProvider";
+import { useNavigate } from "react-router-dom"
 
 export const Tag = ({ tagProp }) => {
     const { getAllTags, deleteTag } = useContext(TagContext);
 
-    const handleEdit = () => {
+    const navigate = useNavigate();
 
+    const handleEdit = () => {
+        navigate("/tags/edit/")
     };
     
     const handleDelete = () => {
