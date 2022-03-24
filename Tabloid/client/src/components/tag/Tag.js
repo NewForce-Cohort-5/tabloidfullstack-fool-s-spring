@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import {Modal, Button} from "react-bootstrap";
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap/lib/Button";
 
 import { TagContext } from "../../providers/TagProvider";
 
@@ -53,20 +53,28 @@ export const Tag = ({ tagProp }) => {
                         <span>Yes, Delete</span>
                     </button> */}
 
-                    <Modal.Dialog>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Modal title</Modal.Title>
-                    </Modal.Header>
-
-                    <Modal.Body>
-                        <p>Modal body text goes here.</p>
-                    </Modal.Body>
-
-                    <Modal.Footer>
-                        <Button variant="secondary">Close</Button>
-                        <Button variant="primary">Save changes</Button>
-                    </Modal.Footer>
-                    </Modal.Dialog>
+                    <div>
+                        <Button color="danger" onClick={function noRefCheck(){}}>
+                            Click Me
+                        </Button>
+                        <Modal fade={false} toggle={function noRefCheck(){}}>
+                            <ModalHeader toggle={function noRefCheck(){}}>
+                                Confirm Delete
+                            </ModalHeader>
+                            <ModalBody>
+                                Are you sure you want to delete #{tagProp.name}?
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="primary" onClick={function noRefCheck(){}}>
+                                    Yes, Delete
+                                </Button>
+                                {' '}
+                                <Button onClick={function noRefCheck(){}}>
+                                    Cancel
+                                </Button>
+                            </ModalFooter>
+                        </Modal>
+                    </div>
                 </td>
             </tr>
         </>
