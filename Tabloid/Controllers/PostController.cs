@@ -44,6 +44,7 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult Post(Post post)
         {
+            post.PublishDateTime = null;
             _postRepository.Add(post);
             return CreatedAtAction("GetSinglePost", new { id = post.Id }, post);
         }
