@@ -16,6 +16,8 @@ const PostForm = () => {
 
   const [post, setPost] = useState(newPost);
 
+  const [categories, setCategories] = useState([]);
+
   const [action, setAction] = useState("Create");
 
   const { addNewPost, getPostToEdit, editPost } = useContext(PostContext);
@@ -50,9 +52,10 @@ const PostForm = () => {
         .then( p => setPost({ 
                       id: p.id,
                       title: p.title, 
-                      caption: p.caption, 
-                      imageUrl: p.imageUrl, 
-                      dateCreated: p.dateCreated,
+                      content: p.content, 
+                      imageLocation: p.imageLocation, 
+                      createDateTime: p.createDateTime,
+                      categoryId: p.categoryId,
                       userProfileId: p.userProfileId
                     }));
       setAction("Edit");
@@ -90,6 +93,19 @@ const PostForm = () => {
             value={post.imageLocation}
             />
           <Label for="imageLocation" hidden>Image Location</Label>
+        </FormGroup>
+        <FormGroup >
+          <Input
+            id="categoryId"
+            placeholder="Category"
+            type="select"
+            onChange={handleChangeInput}
+            value={post.categoryId}
+            >
+              <option>Please Select a Category</option>
+              {categories.map(c => <option value={c.id}>{c.name}</option>)}
+            </Input>
+          <Label for="CategoryId" hidden>Category</Label>
         </FormGroup>
         <Button onClick={handleSubmitPost}>Submit</Button>
       </Form>
