@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { TagContext } from "../../providers/TagProvider";
 
 export const Tag = ({ tagProp }) => {
     const { getAllTags, deleteTag } = useContext(TagContext);
+
+    const handleEdit = () => {
+
+    };
     
     const handleDelete = () => {
         var confirmDelete = window.confirm("Are you sure you want to delete the tag: " + (tagProp.name) + "?")
@@ -20,7 +24,7 @@ export const Tag = ({ tagProp }) => {
             //     deleteTag(tagProp.id)
             //     .then(getAllTags);
             // }
-    }
+    };
 
     return (
         <>
@@ -28,8 +32,10 @@ export const Tag = ({ tagProp }) => {
                 <td className="col-10 align-middle">
                     <h5>#{tagProp.name}</h5>
                 </td>
-                <td className="col-2">
-               
+                <td className="col-2 text-right">
+                    <button type="button" className="btn btn-link" id="tagProp.id" onClick={handleEdit}>
+                        <FontAwesomeIcon icon={faPencilAlt} className="text-secondary"/>
+                    </button>
                     <button type="button" className="btn btn-link" id="tagProp.id" onClick={handleDelete}>
                         <FontAwesomeIcon icon={faTrashAlt} className="text-secondary"/>
                     </button>
