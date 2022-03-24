@@ -7,6 +7,7 @@ import MyPostList from "../post/MyPostList";
 import PostList from "../post/PostList";
 import Hello from "./Hello";
 import TagList from "../tag/TagList"
+import CommentList from "../comment/PostComment";
 import TagForm from "../tag/TagForm"
 import PostDetails from "../post/PostDetails";
 
@@ -30,6 +31,7 @@ export default function ApplicationViews() {
         <Route path="/myposts" element={<MyPostList />} />
         <Route path="/posts/:id" element={<PostDetails />} />
         <Route path="/tags" element={<TagList />} />
+        <Route path="/posts/comments/:id" element={<CommentList />} />
         <Route path="/tags/add" element={<TagForm />} />
       </Routes>
    );
