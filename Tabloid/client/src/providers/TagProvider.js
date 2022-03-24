@@ -23,11 +23,19 @@ export const TagProvider = (props) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(tag),
-        }).then(getAllTags);
-      };
+        })
+            .then(getAllTags);
+    };
+
+    const deleteTag = (tagId) => {
+        return fetch(`/api/tag/${tagId}`, {
+            method: "DELETE"
+        })
+            .then(getAllTags);
+    };
 
     return (
-        <TagContext.Provider value={{ tags, getAllTags, getTagById, addTag }}>
+        <TagContext.Provider value={{ tags, getAllTags, getTagById, addTag, deleteTag }}>
             {props.children}
         </TagContext.Provider>
     );
