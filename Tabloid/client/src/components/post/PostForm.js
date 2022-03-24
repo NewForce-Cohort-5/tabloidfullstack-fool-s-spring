@@ -26,9 +26,9 @@ const PostForm = () => {
     title: false,
     content: false,
     categoryId: false
-   });
+  });
 
-   const setInvalid = (failed) => {
+  const setInvalid = (failed) => {
 
     const newInvalidFields = { ...invalidFields };
   
@@ -49,7 +49,24 @@ const PostForm = () => {
     }
   
     setInvalidFields(newInvalidFields);
-   };
+  };
+
+  const reevaluateInvalidIfAny = () => {
+    if (Object.keys(invalidFields).some(i => invalidFields[i])) {
+
+      const updatedFields = { ...invalidFields };
+
+      for (const field of Object.keys(invalidFields)) {
+        if (field !== "categoryId") {
+          updatedFields[field] = document.getElementById(field).value.length <= 0
+        } else {
+          updatedFields[field] = +document.getElementById(field).value <= 0
+        }
+      }
+
+      setInvalidFields(updatedFields);
+    }
+  };
 
 
   const { id } = useParams();
@@ -57,6 +74,9 @@ const PostForm = () => {
   const navigate = useNavigate();
 
   const handleChangeInput = (e) => {
+
+    reevaluateInvalidIfAny();
+
     const newPostValue = { ...post };
     newPostValue[e.target.id] = e.target.value;
     setPost(newPostValue);
@@ -148,7 +168,7 @@ const PostForm = () => {
             invalid={invalidFields.categoryId}
             value={post.categoryId}
             >
-              <option>Please Select a Category</option>
+              <option value="0">Please Select a Category</option>
               {categories.map(c => <option value={c.id}>{c.name}</option>)}
           </Input>
           <FormFeedback></FormFeedback>
