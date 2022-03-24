@@ -42,6 +42,14 @@ namespace Tabloid.Controllers
             _tagRepository.Add(tag);
             return CreatedAtAction("Get", new { id = tag.Id }, tag);
         }
+
+        //DELETE SINGLE TAG
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _tagRepository.Delete(id);
+            return NoContent();
+        }
     }
 }
 
