@@ -129,7 +129,8 @@ const PostForm = () => {
                         imageLocation: p.imageLocation, 
                         createDateTime: p.createDateTime,
                         categoryId: p.categoryId,
-                        userProfileId: p.userProfileId
+                        userProfileId: p.userProfileId,
+                        publishDateTime: p.publishDateTime
                       }));
         setAction("Edit");
       }
@@ -187,8 +188,19 @@ const PostForm = () => {
             value={post.categoryId}
             >
               <option value="0">Please Select a Category</option>
-              {categories.map(c => <option value={c.id}>{c.name}</option>)}
+              {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
           </Input>
+          <FormFeedback></FormFeedback>
+        </FormGroup>
+        <FormGroup >
+          <Label for="publishDateTime" hidden>Image Location</Label>
+          <Input
+            type="date"
+            id="publishDateTime"
+            placeholder="Publish Date"
+            onChange={handleChangeInput}
+            value={post.publishDateTime}
+            />
           <FormFeedback></FormFeedback>
         </FormGroup>
         <Button onClick={handleSubmitPost}>Submit</Button>

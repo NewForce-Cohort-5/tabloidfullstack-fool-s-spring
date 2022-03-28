@@ -37,7 +37,6 @@ export const PostProvider = (props) => {
       .then(r => r.json())
       .then((post) => {
         const currentUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
-        debugger;
         if (post.userProfileId === currentUserId) {
           return setSinglePost(post);
         }
