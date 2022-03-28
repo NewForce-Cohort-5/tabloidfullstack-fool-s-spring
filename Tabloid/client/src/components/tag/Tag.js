@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { TagContext } from "../../providers/TagProvider";
 
 export const Tag = ({ tagProp }) => {
@@ -31,10 +31,12 @@ export const Tag = ({ tagProp }) => {
                 <td className="col-2">
                
                     <button type="button" className="btn btn-link" id="tagProp.id" onClick={handleDelete}>
-                        <FontAwesomeIcon icon={faTrashAlt} className="text-secondary"/>
+                        
                     </button>
                 </td>  
             </tr>
         </>
     );
 };
+
+//<FontAwesomeIcon icon={faTrashAlt} className="text-secondary"/>
