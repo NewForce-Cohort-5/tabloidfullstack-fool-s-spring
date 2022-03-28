@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
+//! import { CategoryContext } from "../../providers/CategoryProvider";
 import { useNavigate, useParams } from "react-router-dom";
 
 const PostForm = () => {
 
+  //? When the user wants to create a new post refer to this object
+  //? Also useful to reset the post form after an edit is performed 
   const newPost = { 
     title: '', 
     content: '', 
@@ -16,18 +19,27 @@ const PostForm = () => {
 
   const [post, setPost] = useState(newPost);
 
+  //? This state is temporary for testing and will need to be replaced
+  //? It serves to display a functioning form though without any categories
+  //? Once the view all category ticket is complete replace this state with corresponding context
+  //TODO: Replace this:
   const [categories, setCategories] = useState([]);
+  //TODO: with:
+  //! const { categories } = useContext(CategoryContext);
+
 
   const [action, setAction] = useState("Create");
 
   const { addNewPost, getPostToEdit, editPost } = useContext(PostContext);
 
+  //TODO: Each form should have one of these if possible
   const [invalidFields, setInvalidFields] = useState({
     title: false,
     content: false,
     categoryId: false
   });
 
+  //TODO: Move to another file and export
   const setInvalid = (failed) => {
 
     const newInvalidFields = { ...invalidFields };
@@ -51,12 +63,18 @@ const PostForm = () => {
     setInvalidFields(newInvalidFields);
   };
 
+  //TODO: Move to another file and export
   const reevaluateInvalidIfAny = () => {
+    //? When a user attempts to save an invalid post type
+    //? The server returns a bad request and
+    //? the invalidFormFields state sets the invalid input fields to true
+    //? See the input fields to see what I mean
     if (Object.keys(invalidFields).some(i => invalidFields[i])) {
 
       const updatedFields = { ...invalidFields };
 
       for (const field of Object.keys(invalidFields)) {
+        //TODO: Make more robust validation checks
         if (field !== "categoryId") {
           updatedFields[field] = document.getElementById(field).value.length <= 0
         } else {
@@ -85,7 +103,7 @@ const PostForm = () => {
   const handleSubmitPost = () => {
     if (id) {
       editPost(post).then((r) => {
-        // navigate(`/posts/${id}`);
+        //// navigate(`/posts/${id}`);
       });
     } else {
       addNewPost({ ...post, createDateTime: new Date().toISOString() })
@@ -100,6 +118,10 @@ const PostForm = () => {
   };
 
   useEffect(() => {
+
+    //TODO: Wrap the contents of this useEffect with
+    //* getCategories().then(() => {});
+     
     setAction("Create");
     if (id) {
       
