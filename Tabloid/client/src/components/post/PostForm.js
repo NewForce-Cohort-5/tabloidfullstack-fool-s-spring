@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
-//! import { CategoryContext } from "../../providers/CategoryProvider";
+import { CategoryContext } from "../../providers/CategoryProvider";
 import { useNavigate, useParams } from "react-router-dom";
 
 const PostForm = () => {
@@ -19,16 +19,9 @@ const PostForm = () => {
 
   const [post, setPost] = useState(newPost);
 
-  //? This state is temporary for testing and will need to be replaced
-  //? It serves to display a functioning form though without any categories
-  //? Once the view all category ticket is complete replace this state with corresponding context
-  //TODO: Replace this:
-  const [categories, setCategories] = useState([]);
-  //TODO: with:
-  //! const { categories } = useContext(CategoryContext);
-
-
   const [action, setAction] = useState("Create");
+  
+  const { categories, getAllCategories } = useContext(CategoryContext);
 
   const { addNewPost, getPostToEdit, editPost } = useContext(PostContext);
 
@@ -111,7 +104,7 @@ const PostForm = () => {
         if (r.status === 400) {
           setInvalid(r);
         } else {
-          navigate(`/posts/${id}`);
+          navigate(`/posts/${r.id}`);
         }
       });
     }
@@ -119,27 +112,30 @@ const PostForm = () => {
 
   useEffect(() => {
 
-    //TODO: Wrap the contents of this useEffect with
-    //* getCategories().then(() => {});
+    //* Get the categories to fill the select input
+    getAllCategories().then(() => {
+
+      setAction("Create");
+      if (id) {
+        
+        //* It's typical to just say .then(setPost) but I didn't need all the data returned.
+        //* There's an extra User object and a Comments array that I didn't want as part of the post state.
+        
+        getPostToEdit(id)
+          .then( p => setPost({ 
+                        id: p.id,
+                        title: p.title, 
+                        content: p.content, 
+                        imageLocation: p.imageLocation, 
+                        createDateTime: p.createDateTime,
+                        categoryId: p.categoryId,
+                        userProfileId: p.userProfileId
+                      }));
+        setAction("Edit");
+      }
+
+    });
      
-    setAction("Create");
-    if (id) {
-      
-      //* It's typical to just say .then(setPost) but I didn't need all the data returned.
-      //* There's an extra User object and a Comments array that I didn't want as part of the post state.
-      
-      getPostToEdit(id)
-        .then( p => setPost({ 
-                      id: p.id,
-                      title: p.title, 
-                      content: p.content, 
-                      imageLocation: p.imageLocation, 
-                      createDateTime: p.createDateTime,
-                      categoryId: p.categoryId,
-                      userProfileId: p.userProfileId
-                    }));
-      setAction("Edit");
-    }
   }, [id]);
 
   return (
