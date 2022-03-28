@@ -7,10 +7,11 @@ import MyPostList from "../post/MyPostList";
 import PostList from "../post/PostList";
 import Hello from "./Hello";
 import TagList from "../tag/TagList"
+import TagForm from "../tag/TagForm"
+import TagEditForm from "../tag/TagEditForm"
+import CommentList from "../comment/PostComment";
 import { CategoryForm } from "../Category/CategoryForm";
 import { CategoryList } from "../Category/CategoryList";
-import CommentList from "../comment/PostComment";
-import TagForm from "../tag/TagForm";
 import PostDetails from "../post/PostDetails";
 import PostForm from "../post/PostForm";
 
@@ -37,9 +38,10 @@ export default function ApplicationViews() {
         <Route path="/category/add" element={<CategoryForm />} />
         <Route path="/posts/:id" element={<PostDetails />} />
         <Route path="/posts/create" element={<PostForm />} />
-        <Route path="/tags" element={<TagList />} />
         <Route path="/posts/comments/:id" element={<CommentList />} />
+        <Route path="/tags" element={<TagList />} />
         <Route path="/tags/add" element={<TagForm />} />
+        <Route path="/tags/edit/:id" element={<TagEditForm />} />
       </Routes>
    );
   }

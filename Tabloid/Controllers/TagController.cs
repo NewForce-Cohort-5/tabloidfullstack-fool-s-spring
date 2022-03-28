@@ -50,6 +50,19 @@ namespace Tabloid.Controllers
             _tagRepository.Delete(id);
             return NoContent();
         }
+
+        //EDIT SINGLE TAG
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Tag tag)
+        {
+            if (id != tag.Id)
+            {
+                return BadRequest();
+            }
+            _tagRepository.Update(tag);
+            return NoContent();
+        }
+
     }
 }
 
