@@ -16,12 +16,14 @@ namespace Tabloid.Controllers
             _tagRepository = tagRepository;
         }
 
+        //GET ALL TAGS
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(_tagRepository.GetAllTags());
         }
 
+        //GET SINGLE TAG BY ID
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -31,6 +33,22 @@ namespace Tabloid.Controllers
                 return NotFound();
             }
             return Ok(tag);
+        }
+
+        //ADD SINGLE TAG
+        [HttpPost]
+        public IActionResult Post(Tag tag)
+        {
+            _tagRepository.Add(tag);
+            return CreatedAtAction("Get", new { id = tag.Id }, tag);
+        }
+
+        //DELETE SINGLE TAG
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _tagRepository.Delete(id);
+            return NoContent();
         }
     }
 }

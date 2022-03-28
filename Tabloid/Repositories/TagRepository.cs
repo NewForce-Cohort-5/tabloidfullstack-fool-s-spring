@@ -75,7 +75,21 @@ namespace Tabloid.Repositories
 
         public void Add(Tag tag)
         {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Tag (Name)
+                        OUTPUT INSERTED.ID
+                        VALUES (@Name)";
 
+                    DbUtils.AddParameter(cmd, "@Name", tag.Name);;
+
+                    tag.Id = (int)cmd.ExecuteScalar();
+                }
+            }
         }
 
         public void Edit(Tag tag)
@@ -85,7 +99,16 @@ namespace Tabloid.Repositories
 
         public void Delete(int id)
         {
-
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Tag WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
