@@ -11,8 +11,8 @@ export const TagProvider = (props) => {
             .then(setTags);
     };
 
-    const getTagById = (id) => {
-        return fetch(`/api/tag/${id}`)
+    const getTagById = (tag) => {
+        return fetch(`/api/tag/${tag.id}`)
             .then((res) => res.json());
     };
 

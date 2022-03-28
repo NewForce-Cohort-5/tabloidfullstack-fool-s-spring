@@ -10,7 +10,7 @@ export const Tag = ({ tagProp }) => {
     const navigate = useNavigate();
 
     const handleEdit = () => {
-        navigate("/tags/edit/")
+        navigate(`/tags/edit/${tagProp.id}`)
     };
     
     const handleDelete = () => {
