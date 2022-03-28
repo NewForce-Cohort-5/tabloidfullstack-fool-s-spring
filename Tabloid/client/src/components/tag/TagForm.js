@@ -7,8 +7,7 @@ export const TagForm = () => {
     const { addTag, getAllTags } = useContext(TagContext);
 
     const [tag, setTags] = useState({
-        name: "",
-        // userProfileId: +localStorage.activeUser
+        name: ""
     });
 
     const navigate = useNavigate();
