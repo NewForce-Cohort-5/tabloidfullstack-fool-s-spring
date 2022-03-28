@@ -10,6 +10,7 @@ namespace Tabloid.Repositories
         List<Post> GetAllPostsByUser(int id);
         List<Post> GetAllPublishedPosts();
         List<Post> GetAllPublishedPostsByUser(int id);
+        Post GetPostById(int id);
 
         //List<Comment> GetPostComments(int postId);
         Post GetPublishedPostById(int id);

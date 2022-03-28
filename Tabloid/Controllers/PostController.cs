@@ -41,12 +41,26 @@ namespace Tabloid.Controllers
             return Ok(post);
         }
 
+        [HttpGet("mine/{id}")]
+        public IActionResult GetMyPost(int id)
+        {
+            var post = _postRepository.GetPostById(id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(post);
+        }
+
         [HttpPost]
         public IActionResult Post(Post post)
         {
             post.PublishDateTime = null;
+            post.IsApproved = true;
             _postRepository.Add(post);
-            return CreatedAtAction("GetSinglePost", new { id = post.Id }, post);
+            return CreatedAtAction("GetMyPost", new { id = post.Id }, post);
         }
     }
 }
