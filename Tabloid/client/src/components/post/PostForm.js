@@ -23,7 +23,7 @@ const PostForm = () => {
   
   const { categories, getAllCategories } = useContext(CategoryContext);
 
-  const { addNewPost, getPostToEdit, editPost } = useContext(PostContext);
+  const { addNewPost, getPostById, editPost } = useContext(PostContext);
 
   //TODO: Each form should have one of these if possible
   const [invalidFields, setInvalidFields] = useState({
@@ -121,7 +121,7 @@ const PostForm = () => {
         //* It's typical to just say .then(setPost) but I didn't need all the data returned.
         //* There's an extra User object and a Comments array that I didn't want as part of the post state.
         
-        getPostToEdit(id)
+        getPostById(id)
           .then( p => setPost({ 
                         id: p.id,
                         title: p.title, 
