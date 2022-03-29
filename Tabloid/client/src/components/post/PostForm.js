@@ -95,8 +95,13 @@ const PostForm = () => {
 
   const handleSubmitPost = () => {
     if (id) {
-      editPost(post).then((r) => {
-        //// navigate(`/posts/${id}`);
+      editPost(post)
+      .then((r) => {
+        if (r.status === 400) {
+          setInvalid(r);
+        } else {
+          navigate(`/posts/${r.id}`);
+        }
       });
     } else {
       addNewPost({ ...post, createDateTime: new Date().toISOString() })
@@ -130,7 +135,7 @@ const PostForm = () => {
                         createDateTime: p.createDateTime,
                         categoryId: p.categoryId,
                         userProfileId: p.userProfileId,
-                        publishDateTime: p.publishDateTime
+                        publishDateTime: p.publishDateTime.split("T")[0]
                       }));
         setAction("Edit");
       }
@@ -199,7 +204,7 @@ const PostForm = () => {
             id="publishDateTime"
             placeholder="Publish Date"
             onChange={handleChangeInput}
-            value={post.publishDateTime}
+            defaultValue={post.publishDateTime}
             />
           <FormFeedback></FormFeedback>
         </FormGroup>
