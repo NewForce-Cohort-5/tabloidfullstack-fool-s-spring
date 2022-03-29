@@ -57,6 +57,7 @@ const PostDetails = () => {
       <p className="text-left px-4">{singlePost.content}</p>
 
       <PostTagList />
+      
     </Card>}
   </>);
 };
