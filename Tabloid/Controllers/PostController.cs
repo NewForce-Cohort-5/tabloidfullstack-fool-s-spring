@@ -70,7 +70,7 @@ namespace Tabloid.Controllers
                 return BadRequest();
             }
             _postRepository.UpdatePost(post);
-            return NoContent();
+            return Ok(post);
         }
     }
 }
