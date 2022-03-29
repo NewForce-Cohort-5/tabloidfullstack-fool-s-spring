@@ -13,6 +13,7 @@ import CommentList from "../comment/PostComment";
 import { CategoryForm } from "../Category/CategoryForm";
 import { CategoryList } from "../Category/CategoryList";
 import PostDetails from "../post/PostDetails";
+import PostForm from "../post/PostForm";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -36,6 +37,7 @@ export default function ApplicationViews() {
 
         <Route path="/category/add" element={<CategoryForm />} />
         <Route path="/posts/:id" element={<PostDetails />} />
+        <Route path="/posts/create" element={<PostForm />} />
         <Route path="/posts/comments/:id" element={<CommentList />} />
         <Route path="/tags" element={<TagList />} />
         <Route path="/tags/add" element={<TagForm />} />
