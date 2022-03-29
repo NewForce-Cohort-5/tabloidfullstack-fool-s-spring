@@ -38,7 +38,8 @@ export const PostProvider = (props) => {
       .then((post) => {
         const currentUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
         if (post.userProfileId === currentUserId) {
-          return setSinglePost(post);
+          setSinglePost(post);
+          return post;
         }
         return getPublishedPostById(post.id);
       });
@@ -54,10 +55,20 @@ export const PostProvider = (props) => {
       body: JSON.stringify(post)
     }).then(r => r.json());
   };
+
+  const editPost = (post) => {
+    return fetch(`/api/post/${post.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(post)
+    }).then(r => r.json());
+  };
   
   return (
     <PostContext.Provider value={{
-      posts, getAllPosts, getMyPosts, singlePost, getPostById, getPublishedPostById, addNewPost
+      posts, getAllPosts, getMyPosts, singlePost, getPostById, getPublishedPostById, addNewPost, editPost
     }}>
       {props.children}
     </PostContext.Provider>
