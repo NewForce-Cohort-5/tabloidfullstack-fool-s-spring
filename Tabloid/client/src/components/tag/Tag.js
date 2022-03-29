@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom"
 export const Tag = ({ tagProp }) => {
     const { getAllTags, deleteTag } = useContext(TagContext);
     const navigate = useNavigate()
+
+
     const handleEdit = () => {
         navigate(`/tags/edit/${tagProp.id}`)
     };
@@ -25,7 +27,7 @@ export const Tag = ({ tagProp }) => {
             //     deleteTag(tagProp.id)
             //     .then(getAllTags);
             // }
-    }
+    };
 
     return (
         <>
@@ -47,4 +49,3 @@ export const Tag = ({ tagProp }) => {
     );
 };
 
-//<FontAwesomeIcon icon={faTrashAlt} className="text-secondary"/>
