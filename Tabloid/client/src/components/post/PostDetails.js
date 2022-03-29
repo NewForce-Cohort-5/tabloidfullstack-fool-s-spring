@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Card, CardImg, CardBody, Button } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
-import { PostTag } from "../postTag/PostTag";
+import { PostTagList } from "../postTag/PostTagList";
 
 const PostDetails = () => {
 
@@ -50,11 +50,13 @@ const PostDetails = () => {
         </p>
         
         <p className="text-left px-2">{singlePost.category.name}</p>
-      <Button onClick= {() => viewComments()}>View Comments</Button>
+        
+        <Button onClick= {() => viewComments()}>View Comments</Button>
       </CardBody>
       
       <p className="text-left px-4">{singlePost.content}</p>
-      {/* <PostTag /> */}
+
+      <PostTagList />
     </Card>}
   </>);
 };
