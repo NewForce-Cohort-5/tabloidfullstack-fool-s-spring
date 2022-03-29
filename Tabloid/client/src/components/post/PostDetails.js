@@ -31,13 +31,13 @@ const PostDetails = () => {
     {singlePost &&
     <Card>
           
-      <CardImg src={singlePost.imageLocation} alt={singlePost.title} />
+      {singlePost.imageLocation && <CardImg src={singlePost.imageLocation} alt={singlePost.title} />}
     
       <CardBody>
          
         <p className="text-left px-2">
           <Link to={`/users/${singlePost.userProfileId}`} style={{display: "flex", flexDirection: "column"}}>
-            <img width="150" height="150" src={singlePost.userProfile.imageLocation} alt={singlePost.userProfile.fullName} style={{ border: "1px solid #ddd", borderRadius: "50%" }}/> 
+            {singlePost.userProfile.imageLocation && <img width="150" height="150" src={singlePost.userProfile.imageLocation} alt={singlePost.userProfile.fullName} style={{ border: "1px solid #ddd", borderRadius: "50%" }}/> }
             <span className="text-left px-2">{singlePost.userProfile.fullName}</span>
           </Link>
           {new Date(singlePost.publishDateTime).toDateString().slice(3)}

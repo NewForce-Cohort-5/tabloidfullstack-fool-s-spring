@@ -20,15 +20,44 @@ export const PostProvider = (props) => {
       .then(setPosts);
   };
 
-  const getPostById = (id) => {
+  const getPublishedPostById = (id) => {
     return fetch(`/api/post/${id}`)
       .then(r => r.json())
-      .then(setSinglePost);
+      .then(r => {
+        if (r.status) {
+          window.history.back();
+        } else {
+          setSinglePost(r);
+        }
+      });
+  };
+
+  const getPostById = (id) => {
+    return fetch(`/api/post/mine/${id}`)
+      .then(r => r.json())
+      .then((post) => {
+        const currentUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
+        if (post.userProfileId === currentUserId) {
+          return setSinglePost(post);
+        }
+        return getPublishedPostById(post.id);
+      });
+      
+  };
+
+  const addNewPost = (post) => {
+    return fetch('/api/post', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(post)
+    }).then(r => r.json());
   };
   
   return (
     <PostContext.Provider value={{
-      posts, getAllPosts, getMyPosts, singlePost, getPostById
+      posts, getAllPosts, getMyPosts, singlePost, getPostById, getPublishedPostById, addNewPost
     }}>
       {props.children}
     </PostContext.Provider>
