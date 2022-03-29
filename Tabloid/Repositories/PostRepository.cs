@@ -216,6 +216,55 @@ namespace Tabloid.Repositories
             }
         }
 
+        public Post GetPostById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = SelectPostFields()
+                                    + CategoryFields()
+                                    + UserProfileFields()
+                                    + UserTypeFields()
+                                    + FromPost()
+                                    + JoinCategory()
+                                    + JoinUserProfile()
+                                    + JoinUserType()
+                                    + "WHERE p.id = @id";
+
+                    //SELECT p.Id, p.Title, p.Content, 
+                    //       p.ImageLocation AS HeaderImage,
+                    //       p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+                    //       p.CategoryId, p.UserProfileId,
+                    //       c.[Name] AS CategoryName,
+                    //       u.FirstName, u.LastName, u.DisplayName, 
+                    //       u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
+                    //       u.UserTypeId, 
+                    //       ut.[Name] AS UserTypeName
+                    //  FROM Post p
+                    //       LEFT JOIN Category c ON p.CategoryId = c.id
+                    //       LEFT JOIN UserProfile u ON p.UserProfileId = u.id
+                    //       LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                    // WHERE p.id = @id
+
+                    cmd.Parameters.AddWithValue("@id", id);
+                    var reader = cmd.ExecuteReader();
+
+                    Post post = null;
+
+                    if (reader.Read())
+                    {
+                        post = NewPostFromReader(reader);
+                    }
+
+                    reader.Close();
+
+                    return post;
+                }
+            }
+        }
+
         public Post GetUserPostById(int id, int userProfileId)
         {
             using (var conn = Connection)
@@ -273,14 +322,15 @@ namespace Tabloid.Repositories
                         VALUES (
                             @Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime,
                             @IsApproved, @CategoryId, @UserProfileId )";
-                    cmd.Parameters.AddWithValue("@Title", post.Title);
-                    cmd.Parameters.AddWithValue("@Content", post.Content);
-                    cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation);
-                    cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
-                    cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime);
-                    cmd.Parameters.AddWithValue("@IsApproved", post.IsApproved);
-                    cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
-                    cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
+
+                    DbUtils.AddParameter(cmd, "@Title", post.Title);
+                    DbUtils.AddParameter(cmd, "@Content", post.Content);
+                    DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@CreateDateTime", post.CreateDateTime);
+                    DbUtils.AddParameter(cmd, "@PublishDateTime", post.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@IsApproved", post.IsApproved);
+                    DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
 
                     post.Id = (int)cmd.ExecuteScalar();
                 }
