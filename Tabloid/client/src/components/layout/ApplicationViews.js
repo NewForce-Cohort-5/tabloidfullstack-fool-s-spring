@@ -42,7 +42,7 @@ export default function ApplicationViews() {
         <Route path="/tags" element={<TagList />} />
         <Route path="/tags/add" element={<TagForm />} />
         <Route path="/tags/edit/:id" element={<TagEditForm />} />
-        <Route path="" element={<PostTagManager />} />
+        <Route path="/posts/posttag/:id" element={<PostTagManager />} />
       </Routes>
    );
   }

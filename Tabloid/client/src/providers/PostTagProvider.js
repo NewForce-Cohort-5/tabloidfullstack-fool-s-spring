@@ -6,7 +6,7 @@ export const PostTagProvider = (props) => {
     const [postTags, setPostTags] = useState([]);
 
     const getAllTagsOnASinglePost = (postId) => {
-        return fetch(`api/posttag/${postId}`)
+        return fetch(`/api/posttag?postId=${postId}`)
         .then((res) => res.json())
         .then(setPostTags);
     };

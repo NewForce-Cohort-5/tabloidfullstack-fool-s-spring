@@ -8,17 +8,32 @@ export const PostTagManager = () => {
     const { tags, getAllTags } = useContext(TagContext)
     const { postTags, addPostTag, getAllTagsOnASinglePost } = useContext(PostTagContext);
 
-    const [ postTag, setPostTag ] = useState({});
-    const { postId, tagId } = useParams();
+    const [ currentPostTags, setCurrentPostTags ] = useState({});
+    const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         getAllTags()
+        .then(() => {
+            getAllTagsOnASinglePost(id)
+            .then(() => {
+                //debugger;
+                const tempObj = {}
+                for (const tag of tags) {
+                    tempObj[tag.id]=false
+                } 
+                for (const postTag of postTags) {
+                    tempObj[postTag.tagId]=true
+                }
+                debugger;
+                setCurrentPostTags(tempObj)
+            })
+        })
     }, [])
 
     const handleSavePostTags = (event) => {
         event.preventDefault()
-        addPostTag(tagId)
+        addPostTag(id)
             .then(() => navigate("/{postId}"));
     }
 
@@ -27,12 +42,13 @@ export const PostTagManager = () => {
             <h3>Add tags to "name of post here"</h3>
             {/* List of all tags: */}
                 {tags.map(tag => {
-                    return `
+                    return(
                         <div>
-                            <p>#{tag.name}</p>
+                            <input type="checkbox" checked={currentPostTags[tag.name]}></input>
+                            <label key={tag.id}>&nbsp;{tag.name}</label>
                             
                         </div>
-                    `
+                    )
                 }).sort()
                 }
             <div className="form-group row col-sm-12 mx-auto mb-3">

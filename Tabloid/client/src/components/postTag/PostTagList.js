@@ -5,21 +5,21 @@ import { TagContext } from "../../providers/TagProvider";
 import { PostTagContext } from "../../providers/PostTagProvider";
 
 export const PostTagList = () => {
-    // const { tags, getAllTags } = useContext(TagContext)
-    // const { postTags, addPostTag, getAllTagsOnASinglePost } = useContext(PostTagContext);
+    const { tags, getAllTags } = useContext(TagContext)
+    const { postTags, addPostTag, getAllTagsOnASinglePost } = useContext(PostTagContext);
 
     // const [ postTag, setPostTag ] = useState({});
-    const { postId } = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const manageTags = () => {
-        navigate(`/posts/posttags/${postId}`)
+        navigate(`/posts/posttag/${id}`)
     };
 
-    // useEffect(() => {
-    //     getAllTags()
-    //     getAllTagsOnASinglePost(postId);
-    // }, []);
+    useEffect(() => {
+        getAllTags()
+        // getAllTagsOnASinglePost(postId);
+    }, []);
    
 
     // get single post where postTag.postId === post.id, 
