@@ -13,7 +13,7 @@ const PostOptions = ({ id }) => {
 
   const handleDelete = (postId) => {
     if (window.confirm('Are you sure you want to delete post?')) {
-      deletePost(postId).then(() => navigate("/"));
+      deletePost(postId).then(() => navigate("/myposts"));
     }
   };
 
@@ -24,6 +24,9 @@ const PostOptions = ({ id }) => {
         <FontAwesomeIcon icon={faPencilAlt} />
       </Link>
       {' '}
+      <Button className="btn btn-danger" onClick={() => handleDelete(id)} >
+        <FontAwesomeIcon icon={faTrashAlt} />
+      </Button>
     </>
   );
 };
