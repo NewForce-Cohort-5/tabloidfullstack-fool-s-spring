@@ -5,14 +5,18 @@ export const UserProfileContext = createContext();
 
 export function UserProfileProvider(props) {
 
-  // const apiUrl = "https://localhost:44360";
-
   const userProfile = sessionStorage.getItem("userProfile");
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
 
 
   const login = (userObject) => {
-    return fetch(`/api/userprofile/getbyemail?email=${userObject.email}`)
+    return fetch('/api/userprofile/login', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userObject)
+    })
     .then((r) => r.json())
       .then((userProfile) => {
         if(userProfile.id){
