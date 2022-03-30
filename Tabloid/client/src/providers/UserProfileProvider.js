@@ -67,8 +67,7 @@ export function UserProfileProvider(props) {
             .then((responseObj) => {
               //* If the response object doesn't have a status then it will be a user object
               if (!responseObj.status) {
-                sessionStorage.setItem("userProfile", JSON.stringify(responseObj))
-                setIsLoggedIn(true);
+                login(responseObj);
               //* Otherwise it failed and it has a status code
               } else {
                 return responseObj;
