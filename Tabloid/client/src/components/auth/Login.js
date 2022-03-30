@@ -7,8 +7,8 @@ export default function Login() {
   const navigate = useNavigate();
   const { login } = useContext(UserProfileContext);
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const loginSubmit = (e) => {
     e.preventDefault();
