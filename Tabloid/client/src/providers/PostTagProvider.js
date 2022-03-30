@@ -15,15 +15,14 @@ export const PostTagProvider = (props) => {
     };
 
     const addTagToPost = (postId, tags) => {
-        debugger;
-        return fetch(`/api/posttag/${postId}`, {
+        return fetch(`/api/posttag?postId=${postId}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(tags), 
         })
-            .then(getAllTagsOnASinglePost);
+            .then(() => getAllTagsOnASinglePost(postId));
     };
 
     return (

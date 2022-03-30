@@ -40,22 +40,25 @@ export const PostTagManager = () => {
             .then(() => navigate(`/posts/${id}`));
     }
 
+    const handleChange = (e) => {
+      const changedPostTags = { ...currentPostTags };
+      changedPostTags[e.target.id] = e.target.checked;
+      setCurrentPostTags(changedPostTags);
+    };
+
     return (
         <>
         <div className="card m-5 p-3">
             <h3 className="text-center">Add tags to post:</h3>
             {/* Get name of post your adding tags to: */}
-            {posts.filter(post => {
-                return(
-                    <h3 key={post.id} className="text-center"><em>{post.name}</em></h3>
-                )
-            })} 
+            
+            <h3 className="text-center"><em>{singlePost.name}</em></h3>
 
             {/* Get a list of all available tags: */}
             {tags.map(tag => {
                 return(
                     <div key={tag.id} className="mt-2 pl-3">
-                        <input htmlFor="tagName" id="tagName" type="checkbox" defaultChecked={currentPostTags[tag.id]}></input>
+                        <input htmlFor="tagName" id={tag.id} type="checkbox" onClick={(e) => handleChange(e)} defaultChecked={currentPostTags[tag.id]}></input>
                         <label name="tagName">&nbsp;{tag.name}</label>
                     </div>
                 )

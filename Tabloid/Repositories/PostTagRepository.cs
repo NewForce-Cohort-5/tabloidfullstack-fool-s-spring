@@ -47,7 +47,7 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void Add(PostTag postTag)
+        public void Add(int postId, List<int> tagIds)
         {
             using (var conn = Connection)
             {
@@ -57,11 +57,32 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                         INSERT INTO PostTag (PostId, TagId)
-                             VALUES (@PostId, @TagId)";
-                    cmd.Parameters.AddWithValue("@PostId", postTag.PostId);
-                    cmd.Parameters.AddWithValue("@TagId", postTag.TagId);
+                             VALUES ";
 
-                    postTag.Id = (int)cmd.ExecuteScalar();
+                    for (int i = 0; i < tagIds.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            // If the list only contains one id or it's on the first id from the list
+                            // just simply insert it like a normal insert statement
+                            cmd.CommandText += $"(@postId, @tagId)";
+                            cmd.Parameters.AddWithValue("@postId", postId);
+                            cmd.Parameters.AddWithValue("@tagId", tagIds[i]);
+                        }
+                        else
+                        {
+                            // With multiple values we need to separate each value to add to db by comma
+                            cmd.CommandText += $", (@postId{i}, @tagId{i})";
+                            cmd.Parameters.AddWithValue($"@postId{i}", postId);
+                            cmd.Parameters.AddWithValue($"@tagId{i}", tagIds[i]);
+                        }
+                    }
+
+                    cmd.ExecuteNonQuery();
+                    //cmd.Parameters.AddWithValue("@PostId", postId);
+                    //cmd.Parameters.AddWithValue("@TagId", postTag.TagId);
+
+                    //postTag.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
