@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Card, CardImg, CardBody, Button } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
 import { PostTagList } from "../postTag/PostTagList";
+import PostOptions from "./PostOptions";
 
 const PostDetails = () => {
 
@@ -11,6 +12,8 @@ const PostDetails = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();
+
+  const currentUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
 
   useEffect(() => {
     getPostById(id);
@@ -50,8 +53,8 @@ const PostDetails = () => {
         </p>
         
         <p className="text-left px-2">{singlePost.category.name}</p>
-        
-        <Button onClick= {() => viewComments()}>View Comments</Button>
+      <Button onClick= {() => viewComments()}>View Comments</Button>
+      { currentUserId === singlePost.userProfileId && <PostOptions id={singlePost.id} /> }
       </CardBody>
       
       <p className="text-left px-4">{singlePost.content}</p>

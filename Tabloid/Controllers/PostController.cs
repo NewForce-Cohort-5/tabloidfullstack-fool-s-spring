@@ -61,5 +61,16 @@ namespace Tabloid.Controllers
             _postRepository.Add(post);
             return CreatedAtAction("GetMyPost", new { id = post.Id }, post);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Post post)
+        {
+            if (id != post.Id)
+            {
+                return BadRequest();
+            }
+            _postRepository.UpdatePost(post);
+            return Ok(post);
+        }
     }
 }
