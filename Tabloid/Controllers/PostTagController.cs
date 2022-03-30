@@ -23,7 +23,7 @@ namespace Tabloid.Controllers
             return Ok(_postTagRepository.GetAllTagsOnASinglePost(postId));
         }
 
-        //ADD TAG TO POST - PostTags
+        //ADD TAGS TO POST - PostTags
         [HttpPost]
         public IActionResult Post(PostTag postTag)
         {

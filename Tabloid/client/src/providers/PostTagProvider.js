@@ -8,16 +8,20 @@ export const PostTagProvider = (props) => {
     const getAllTagsOnASinglePost = (postId) => {
         return fetch(`/api/posttag?postId=${postId}`)
         .then((res) => res.json())
-        .then(setPostTags);
+        .then((postTagsRes) => {
+            setPostTags(postTagsRes)
+            return postTagsRes
+        });
     };
 
-    const addTagToPost = (postId) => {
+    const addTagToPost = (postId, tags) => {
+        debugger;
         return fetch(`/api/posttag/${postId}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(postId),
+          body: JSON.stringify(tags),
         })
             .then(getAllTagsOnASinglePost);
     };

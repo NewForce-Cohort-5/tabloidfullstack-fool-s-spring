@@ -8,7 +8,10 @@ export const TagProvider = (props) => {
     const getAllTags = () => {
         return fetch(`/api/tag`)
             .then((res) => res.json())
-            .then(setTags);
+            .then((tagsRes) => {
+                setTags(tagsRes)
+                return tagsRes
+            });
     };
 
     const getTagById = (tag) => {
