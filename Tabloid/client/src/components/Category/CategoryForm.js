@@ -25,7 +25,7 @@ export const CategoryForm = () => {
         addCategory(category)
         .then(navigate("/category"))
     }
-
+//below is code for adding a new category
     return (
         <form className="categoryForm">
             <h2 className="categoryForm_title">New Category</h2>
