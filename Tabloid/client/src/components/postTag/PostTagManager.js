@@ -7,7 +7,7 @@ import { PostContext } from "../../providers/PostProvider";
 
 export const PostTagManager = () => {
     const { tags, getAllTags } = useContext(TagContext)
-    const { posts, getPostById } = useContext(PostContext)
+    const { posts, getPostById, singlePost } = useContext(PostContext)
     const { postTags, addTagToPost, getAllTagsOnASinglePost } = useContext(PostTagContext);
 
     const [ currentPostTags, setCurrentPostTags ] = useState({});
