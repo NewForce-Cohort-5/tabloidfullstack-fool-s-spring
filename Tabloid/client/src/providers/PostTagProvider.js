@@ -21,7 +21,7 @@ export const PostTagProvider = (props) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(tags),
+          body: JSON.stringify(tags), 
         })
             .then(getAllTagsOnASinglePost);
     };
