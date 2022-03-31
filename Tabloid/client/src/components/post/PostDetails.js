@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Card, CardImg, CardBody, Button } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
+import { PostTagList } from "../postTag/PostTagList";
 import PostOptions from "./PostOptions";
 
 const PostDetails = () => {
@@ -57,6 +58,8 @@ const PostDetails = () => {
       </CardBody>
       
       <p className="text-left px-4">{singlePost.content}</p>
+
+      <PostTagList />
       
     </Card>}
   </>);
