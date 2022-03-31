@@ -15,6 +15,10 @@ const PostDetails = () => {
 
   const currentUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
 
+  const manageTags = () => {
+    navigate(`/posts/posttag/${id}`)
+};
+
   useEffect(() => {
     getPostById(id);
   }, [id]);
@@ -60,6 +64,12 @@ const PostDetails = () => {
       <p className="text-left px-4">{singlePost.content}</p>
 
       <PostTagList />
+
+        {currentUserId === singlePost.userProfileId &&
+            <div className="row text-left ml-4 mb-5">
+                <Button onClick={() => manageTags()} className="btn btn-outline-primary bg-white text-primary btn-sm pb-2">Manage Tags</Button>
+            </div>
+        }
       
     </Card>}
   </>);
