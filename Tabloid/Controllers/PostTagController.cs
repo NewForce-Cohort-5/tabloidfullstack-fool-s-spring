@@ -32,24 +32,16 @@ namespace Tabloid.Controllers
             // Extract the tag ids from the checkboxes that are in the form
             foreach (var id in tagIdMap)
             {
-
-
                 // If a tag was selected then the first value from the form object will be true
                 if (id.Value == true)
                 {
                     // Use regex to get the tag id from the checkbox's key
                     tagIds.Add(id.Key);
                 }
-
             }
             _postTagRepository.Add(postId, tagIds);
 
             return NoContent();
-
-            //_postTagRepository.Add(postTags);
-            //return NotFound();
-
-            //return CreatedAtAction("Get", new { id = postTag.Id }, postTag);
         }
     }
 }

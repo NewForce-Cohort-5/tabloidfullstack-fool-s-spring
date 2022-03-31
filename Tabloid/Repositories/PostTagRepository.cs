@@ -79,10 +79,6 @@ namespace Tabloid.Repositories
                     }
 
                     cmd.ExecuteNonQuery();
-                    //cmd.Parameters.AddWithValue("@PostId", postId);
-                    //cmd.Parameters.AddWithValue("@TagId", postTag.TagId);
-
-                    //postTag.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }

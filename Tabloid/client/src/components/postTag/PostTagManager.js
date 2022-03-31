@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Button } from "reactstrap";
 import { useNavigate, useParams } from "react-router-dom"
 import { TagContext } from "../../providers/TagProvider";
 import { PostTagContext } from "../../providers/PostTagProvider";
-import { PostContext } from "../../providers/PostProvider";
+// import { PostContext } from "../../providers/PostProvider";
 
 export const PostTagManager = () => {
     const { tags, getAllTags } = useContext(TagContext)
-    const { posts, getPostById, singlePost } = useContext(PostContext)
+    // const { posts, getPostById, singlePost } = useContext(PostContext)
     const { postTags, addTagToPost, getAllTagsOnASinglePost } = useContext(PostTagContext);
 
     const [ currentPostTags, setCurrentPostTags ] = useState({});
@@ -51,8 +50,7 @@ export const PostTagManager = () => {
         <div className="card m-5 p-3">
             <h3 className="text-center">Add tags to post:</h3>
             {/* Get name of post your adding tags to: */}
-            
-            <h3 className="text-center"><em>{singlePost.name}</em></h3>
+            {/* <h3 className="text-center"><em>{singlePost.name}</em></h3> */}
 
             {/* Get a list of all available tags: */}
             {tags.map(tag => {
