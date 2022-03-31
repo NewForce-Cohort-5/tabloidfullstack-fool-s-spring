@@ -9,7 +9,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-import { UserProfileContext } from "../providers/UserProfileProvider";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
 
 export default function Header() {
   const { isLoggedIn, logout } = useContext(UserProfileContext);
@@ -25,9 +25,30 @@ export default function Header() {
           <Nav className="mr-auto" navbar>
             { /* When isLoggedIn === true, we will render the Home link */ }
             {isLoggedIn &&
+            <>
               <NavItem>
                 <NavLink tag={RRNavLink} to="/">Home</NavLink>
               </NavItem>
+
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/posts">Posts</NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/myposts">My Posts</NavLink>
+              </NavItem>
+              
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/posts/create">New Post</NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/tags">Tags</NavLink>
+              </NavItem>
+              <NavItem>
+                  <NavLink tag={RRNavLink} to="/category">Categories</NavLink>
+              </NavItem>
+            </>
             }
           </Nav>
           <Nav navbar>
